@@ -6,7 +6,10 @@ function App() {
   };
 
   return (
-    <div>{double(number)}</div>
+    <>
+      <div>{double(number)}</div>
+      <button>Submit</button>
+    </>
   );
 }
 
