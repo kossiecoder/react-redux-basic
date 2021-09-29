@@ -6,7 +6,6 @@ function App() {
   const double = () => {
     const doubledNumber = number * 2;
     setNumber(doubledNumber);
-    setNumber(doubledNumber * 2);
     setNumber1(number1 * 2);
     console.log(doubledNumber);
   };
