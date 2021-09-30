@@ -19,16 +19,25 @@ function App() {
 
   return (
     <Router>
-      <div>
-        <Link to="/">Home</Link>
-        <Link to="/blogs">Blogs</Link>
-      </div>
+      <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+          <Link class="navbar-brand" to="/">Home</Link>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <Link class="nav-link active" aria-current="page" to="/blogs">
+                Blogs
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </nav>
       <Switch>
         <Route path="/" exact>
           Home Page
         </Route>
         <Route path="/blogs">
           <div className="container">
+            <h1>Create a blog post</h1>
             <div className="mb-3">
               <label className="form-label">Title</label>
               <input 
