@@ -24,7 +24,7 @@ function App() {
         <Link to="/blogs">Blogs</Link>
       </div>
       <Switch>
-        <Route path="/">
+        <Route path="/" exact>
           Home Page
         </Route>
         <Route path="/blogs">
