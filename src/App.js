@@ -14,7 +14,7 @@ function App() {
       <div className="container">
         <Switch>
           {routes.map((route) => {
-            return <Route exact path={route.path} component={route.component} />;
+            return <Route key={route.path} exact path={route.path} component={route.component} />;
           })}
         </Switch>
       </div>
