@@ -8,7 +8,6 @@ const NavBar = () => {
           <ul className="navbar-nav">
             <li className="nav-item">
               <NavLink 
-                exact
                 activeClassName="active"
                 className="nav-link" 
                 aria-current="page" 
