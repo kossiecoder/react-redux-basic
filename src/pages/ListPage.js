@@ -15,7 +15,14 @@ const ListPage = () => {
   }, []);
 
   return (
-    <div>List Page</div>
+    <div>
+      <h1>Blogs</h1>
+      {posts.map(post => {
+        return (
+          <div>{post.title}</div>
+        );
+      })}
+    </div>
   );
 };
 
