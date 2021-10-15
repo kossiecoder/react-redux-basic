@@ -21,11 +21,6 @@ const ListPage = () => {
       {posts.map(post => {
         return (
           <Card key={post.id} title={post.title} />
-          // <div class="card mb-3" key={post.id}>
-          //   <div class="card-body">
-          //     {post.title}
-          //   </div>
-          // </div>
         );
       })}
     </div>
