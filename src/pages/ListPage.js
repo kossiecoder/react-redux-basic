@@ -36,7 +36,7 @@ const ListPage = () => {
           </Link>
         </div>
       </div>
-      {posts.map(post => {
+      {posts.length > 0 ? posts.map(post => {
         return (
           <Card 
             key={post.id} 
@@ -53,7 +53,7 @@ const ListPage = () => {
             </div>
           </Card>
         );
-      })}
+      }) : 'No blog posts found'}
     </div>
   );
 };
