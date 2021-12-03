@@ -17,7 +17,7 @@ const ShowPage = () => {
 
   useEffect(() => {
     getPost(id)
-  }, [])
+  }, [id])
 
   if (loading) {
     return <LoadingSpinner />
