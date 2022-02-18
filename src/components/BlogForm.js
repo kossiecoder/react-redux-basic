@@ -18,13 +18,22 @@ const BlogForm = ({ editing }) => {
   }, [id]);
   
   const onSubmit = () => {
-    axios.post('http://localhost:3001/posts', {
-      title,
-      body,
-      createdAt: Date.now()
-    }).then(() => {
-      history.push('/blogs');
-    })
+    if (editing) {
+      axios.patch(`http://localhost:3001/posts/${id}`, {
+        title,
+        body,
+      }).then(res => {
+        console.log(res);
+      })
+    } else {
+      axios.post('http://localhost:3001/posts', {
+        title,
+        body,
+        createdAt: Date.now()
+      }).then(() => {
+        history.push('/blogs');
+      })
+    }
   };
 
   return (
