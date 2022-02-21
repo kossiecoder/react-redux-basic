@@ -8,15 +8,26 @@ const BlogForm = ({ editing }) => {
   const { id } = useParams();
 
   const [title, setTitle] = useState('');
+  const [originalTitle, setOriginalTitle] = useState('');
   const [body, setBody] = useState('');
+  const [originalBody, setOriginalBody] = useState('');
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/posts/${id}`).then(res => {
-      setTitle(res.data.title);
-      setBody(res.data.body);
-    })
-  }, [id]);
-  
+    if (editing) {
+      axios.get(`http://localhost:3001/posts/${id}`).then(res => {
+        setTitle(res.data.title);
+        setOriginalTitle(res.data.title);
+        setBody(res.data.body);
+        setOriginalBody(res.data.body);
+      })
+    }
+  }, [id, editing]);
+
+  const isEdited = () => {
+    console.log('a')
+    return title !== originalTitle || body !== originalBody;
+  };
+
   const onSubmit = () => {
     if (editing) {
       axios.patch(`http://localhost:3001/posts/${id}`, {
@@ -24,6 +35,7 @@ const BlogForm = ({ editing }) => {
         body,
       }).then(res => {
         console.log(res);
+        history.push(`/blogs/${id}`)
       })
     } else {
       axios.post('http://localhost:3001/posts', {
@@ -63,6 +75,7 @@ const BlogForm = ({ editing }) => {
       <button 
         className="btn btn-primary"
         onClick={onSubmit}
+        disabled={editing && !isEdited()}
       >
         {editing ? 'Edit' : 'Post' }
       </button>
