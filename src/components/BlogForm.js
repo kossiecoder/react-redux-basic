@@ -28,6 +28,14 @@ const BlogForm = ({ editing }) => {
     return title !== originalTitle || body !== originalBody;
   };
 
+  const goBack = () => {
+    if (editing) {
+      history.push(`/blogs/${id}`);
+    } else {
+      history.push('/blogs');
+    }
+  };
+
   const onSubmit = () => {
     if (editing) {
       axios.patch(`http://localhost:3001/posts/${id}`, {
@@ -78,6 +86,12 @@ const BlogForm = ({ editing }) => {
         disabled={editing && !isEdited()}
       >
         {editing ? 'Edit' : 'Post' }
+      </button>
+      <button 
+        className="btn btn-danger ms-2"
+        onClick={goBack}
+      >
+        Cancel
       </button>
     </div>
   );
