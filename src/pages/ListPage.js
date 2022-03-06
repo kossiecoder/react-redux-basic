@@ -40,7 +40,9 @@ const ListPage = () => {
       return (<div>No blog posts found</div>)
     }
 
-    return posts.map(post => {
+    return posts.filter(post => {
+      return post.publish
+    }).map(post => {
       return (
         <Card 
           key={post.id} 
