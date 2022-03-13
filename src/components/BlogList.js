@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Card from '../components/Card';
-import { Link } from 'react-router-dom'; 
 import { useHistory } from 'react-router';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { bool } from 'prop-types';
