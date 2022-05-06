@@ -5,9 +5,13 @@ import { useHistory } from 'react-router';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { bool } from 'prop-types';
 import Pagination from './Pagination';
+import { useLocation } from 'react-router-dom';
 
 const BlogList = ({ isAdmin }) => {
   const history = useHistory();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const pageParam = params.get('page');
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,8 +23,10 @@ const BlogList = ({ isAdmin }) => {
     setNumberOfPages(Math.ceil(numberOfPosts/limit));
   }, [numberOfPosts]);
 
+  const onClickPageButton = (page) => {
+    history.push(`${location.pathname}?page=${page}`)
+  }
   const getPosts = (page = 1) => {
-    setCurrentPage(page);
     let params = {
       _page: page,
       _limit: limit,
@@ -41,6 +47,11 @@ const BlogList = ({ isAdmin }) => {
     })
   }
 
+  useEffect(() => {
+    setCurrentPage(parseInt(pageParam) || 1);
+    getPosts(parseInt(pageParam) || 1);
+  }, [pageParam]);
+
   const deleteBlog = (e, id) => {
     e.stopPropagation();
     
@@ -48,10 +59,6 @@ const BlogList = ({ isAdmin }) => {
       setPosts(prevPosts => prevPosts.filter(post => post.id !== id));
     });
   };
-
-  useEffect(() => {
-    getPosts();
-  }, []);
   
   if (loading) {
     return (
@@ -89,7 +96,7 @@ const BlogList = ({ isAdmin }) => {
       {numberOfPages > 1 && <Pagination 
         currentPage={currentPage} 
         numberOfPages={numberOfPages} 
-        onClick={getPosts}
+        onClick={onClickPageButton}
       />}
     </div>
   )
