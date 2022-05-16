@@ -3,9 +3,9 @@ import { useState, useEffect, useCallback } from 'react';
 import Card from '../components/Card';
 import { useHistory } from 'react-router';
 import LoadingSpinner from '../components/LoadingSpinner';
-import { bool } from 'prop-types';
 import Pagination from './Pagination';
 import { useLocation } from 'react-router-dom';
+import propTypes from 'prop-types';
 
 const BlogList = ({ isAdmin }) => {
   const history = useHistory();
@@ -17,6 +17,7 @@ const BlogList = ({ isAdmin }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [numberOfPosts, setNumberOfPosts] = useState(0);
   const [numberOfPages, setNumberOfPages] = useState(0);
+  const [searchText, setSearchText] = useState('');
   const limit = 5;
 
   useEffect(() => {
@@ -33,6 +34,7 @@ const BlogList = ({ isAdmin }) => {
       _limit: limit,
       _sort: 'id',
       _order: 'desc',
+      title_like: searchText
     }
 
     if (!isAdmin) {
@@ -46,7 +48,7 @@ const BlogList = ({ isAdmin }) => {
       setPosts(res.data);
       setLoading(false);
     })
-  }, [isAdmin])
+  }, [isAdmin, searchText])
 
   useEffect(() => {
     setCurrentPage(parseInt(pageParam) || 1);
@@ -67,9 +69,6 @@ const BlogList = ({ isAdmin }) => {
     );
   }
   
-  if (posts.length === 0) {
-    return (<div>No blog posts found</div>)
-  }
   const renderBlogList = () => {
     return posts.map(post => {
       return (
@@ -91,20 +90,38 @@ const BlogList = ({ isAdmin }) => {
     })
   }
 
+  const onSearch = () => {
+    getPosts(1);
+  }
+
   return (
     <div>
-      {renderBlogList()}
-      {numberOfPages > 1 && <Pagination 
-        currentPage={currentPage} 
-        numberOfPages={numberOfPages} 
-        onClick={onClickPageButton}
-      />}
+      <input 
+        type="text"
+        placeholder="Search.."
+        className="form-control"
+        value={searchText}
+        onChange={(e) => setSearchText(e.target.value)}
+        onKeyUp={onSearch}
+      />
+      <hr />
+      {posts.length === 0 
+        ? <div>No blog posts found</div> 
+        : <>
+          {renderBlogList()}
+          {numberOfPages > 1 && <Pagination 
+            currentPage={currentPage} 
+            numberOfPages={numberOfPages} 
+            onClick={onClickPageButton}
+          />}
+        </>}
+      
     </div>
   )
 };
 
 BlogList.propTypes = {
-  isAdmin: bool
+  isAdmin: propTypes.bool
 };
 
 BlogList.defaultProps = {
