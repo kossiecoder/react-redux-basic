@@ -6,6 +6,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import Pagination from './Pagination';
 import { useLocation } from 'react-router-dom';
 import propTypes from 'prop-types';
+import Toast from '../components/Toast';
 
 const BlogList = ({ isAdmin }) => {
   const history = useHistory();
@@ -102,6 +103,12 @@ const BlogList = ({ isAdmin }) => {
 
   return (
     <div>
+      <Toast
+        toasts={[
+          { text: 'error'},
+          { text: 'success', type: 'success'},
+        ]}
+      />
       <input 
         type="text"
         placeholder="Search.."
