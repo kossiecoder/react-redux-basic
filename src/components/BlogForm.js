@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useHistory, useParams } from 'react-router';
 import propTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
+import Toast from '../components/Toast';
 
 const BlogForm = ({ editing }) => {
   const history = useHistory();
@@ -15,6 +17,7 @@ const BlogForm = ({ editing }) => {
   const [originalPublish, setOriginalPublish] = useState(false);
   const [titleError, setTitleError] = useState(false);
   const [bodyError, setBodyError] = useState(false);
+  const [toasts, setToasts] = useState([]);
 
   useEffect(() => {
     if (editing) {
@@ -59,6 +62,27 @@ const BlogForm = ({ editing }) => {
     return validated;
   }
 
+  const deleteToast = (id) => {
+    const filteredToasts = toasts.filter(toast => {
+      return toast.id !== id;
+    });
+
+    setToasts(filteredToasts);
+  }
+
+  const addToast = (toast) => {
+    const id = uuidv4();
+    const toastWithId = {
+      ...toast,
+      id
+    }
+    setToasts(prev => [...prev, toastWithId]);
+
+    setTimeout(() => {
+      deleteToast(id);
+    }, 5000);
+  };
+
   const onSubmit = () => {
     setTitleError(false);
     setBodyError(false);
@@ -79,7 +103,11 @@ const BlogForm = ({ editing }) => {
           publish,
           createdAt: Date.now()
         }).then(() => {
-          history.push('/admin');
+          addToast({
+            type: 'success',
+            text: 'Successfully created!'
+          });
+          // history.push('/admin');
         })
       }
     }
@@ -91,6 +119,10 @@ const BlogForm = ({ editing }) => {
 
   return (
     <div>
+      <Toast
+        toasts={toasts}
+        deleteToast={deleteToast}
+      />
       <h1>{editing ? 'Edit' : 'Create'} a blog post</h1>
       <div className="mb-3">
         <label className="form-label">Title</label>
