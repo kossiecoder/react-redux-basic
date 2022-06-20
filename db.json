@@ -1,95 +1,11 @@
 {
   "posts": [
     {
-      "title": "reactjs123123",
-      "body": "reactjs",
-      "createdAt": 1644556415774,
-      "id": 1,
-      "publish": true
-    },
-    {
-      "title": "reactjs345345",
-      "body": "reactjs",
-      "createdAt": 1644556415774,
-      "id": 2,
-      "publish": true
-    },
-    {
-      "title": "reactjs456456",
-      "body": "reactjs",
-      "createdAt": 1644556415774,
-      "id": 3,
-      "publish": true
-    },
-    {
-      "title": "reactjs1111",
-      "body": "reactjs",
-      "createdAt": 1644556415774,
-      "id": 4,
-      "publish": true
-    },
-    {
-      "title": "redux",
-      "body": "redux",
+      "title": "2",
+      "body": "2",
       "publish": false,
-      "createdAt": 1646350520510,
-      "id": 6
-    },
-    {
-      "title": "redux 2",
-      "body": "redux 2",
-      "publish": true,
-      "createdAt": 1646350534135,
-      "id": 7
-    },
-    {
-      "title": "react",
-      "body": "react",
-      "publish": false,
-      "createdAt": 1647211176299,
-      "id": 8
-    },
-    {
-      "title": "recoiljs",
-      "body": "recoiljs",
-      "publish": false,
-      "createdAt": 1647211385146,
-      "id": 9
-    },
-    {
-      "title": "test2",
-      "body": "test2",
-      "publish": false,
-      "createdAt": 1647211545153,
-      "id": 12
-    },
-    {
-      "title": "test3",
-      "body": "test3",
-      "publish": false,
-      "createdAt": 1647211550036,
-      "id": 13
-    },
-    {
-      "title": "test4",
-      "body": "test4",
-      "publish": true,
-      "createdAt": 1647211557225,
-      "id": 14
-    },
-    {
-      "title": "test5",
-      "body": "test5",
-      "publish": false,
-      "createdAt": 1647211568779,
-      "id": 15
-    },
-    {
-      "title": "tetet",
-      "body": "body",
-      "publish": false,
-      "createdAt": 1653630771975,
-      "id": 17
+      "createdAt": 1655353112963,
+      "id": 10
     }
   ]
 }

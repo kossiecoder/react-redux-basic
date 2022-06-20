@@ -1,11 +1,15 @@
 import propTypes from "prop-types";
 
-const Toast = ({ toasts }) => {
+const Toast = ({ toasts, deleteToast }) => {
   return (
     <div className="position-fixed bottom-0 end-0 p-2">
       {toasts.map(toast => {
         return (
-          <div className={`alert alert-${toast.type || 'success'} m-0 py-2 mt-2`}>
+          <div
+            key={toast.id}
+            onClick={() => {deleteToast(toast.id)}} 
+            className={`cursor-pointer alert alert-${toast.type || 'success'} m-0 py-2 mt-2`}
+          >
             {toast.text}
           </div>
         );
@@ -18,7 +22,8 @@ Toast.propTypes = {
   toasts: propTypes.arrayOf(propTypes.shape({
     text: propTypes.string,
     type: propTypes.string
-  })).isRequired
+  })).isRequired,
+  deleteToast: propTypes.func.isRequired,
 }
 
 Toast.defaultProps = {
