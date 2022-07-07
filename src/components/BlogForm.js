@@ -63,6 +63,7 @@ const BlogForm = ({ editing }) => {
   }
 
   const deleteToast = (id) => {
+    console.log(toasts);
     const filteredToasts = toasts.filter(toast => {
       return toast.id !== id;
     });
@@ -77,7 +78,7 @@ const BlogForm = ({ editing }) => {
       id
     }
     setToasts(prev => [...prev, toastWithId]);
-
+    console.log('add', toasts);
     setTimeout(() => {
       deleteToast(id);
     }, 5000);
