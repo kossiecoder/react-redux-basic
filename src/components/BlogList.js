@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Card from '../components/Card';
 import { useHistory } from 'react-router';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -20,7 +20,8 @@ const BlogList = ({ isAdmin }) => {
   const [numberOfPosts, setNumberOfPosts] = useState(0);
   const [numberOfPages, setNumberOfPages] = useState(0);
   const [searchText, setSearchText] = useState('');
-  const [toasts, setToasts] = useState([]);
+  const [, setToastRerender] = useState(false);
+  const toasts = useRef([]);
   const limit = 5;
 
   useEffect(() => {
@@ -61,11 +62,12 @@ const BlogList = ({ isAdmin }) => {
   }, []);
   
   const deleteToast = (id) => {
-    const filteredToasts = toasts.filter(toast => {
+    const filteredToasts = toasts.current.filter(toast => {
       return toast.id !== id;
     });
 
-    setToasts(filteredToasts);
+    toasts.current = filteredToasts;
+    setToastRerender(prev => !prev);
   }
 
   const addToast = (toast) => {
@@ -74,7 +76,11 @@ const BlogList = ({ isAdmin }) => {
       ...toast,
       id
     }
-    setToasts(prev => [...prev, toastWithId]);
+    toasts.current = [
+      ...toasts.current,
+      toastWithId
+    ];
+    setToastRerender(prev => !prev);
 
     setTimeout(() => {
       deleteToast(id);
@@ -131,7 +137,7 @@ const BlogList = ({ isAdmin }) => {
   return (
     <div>
       <Toast
-        toasts={toasts}
+        toasts={toasts.current}
         deleteToast={deleteToast}
       />
       <input 

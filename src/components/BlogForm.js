@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { useHistory, useParams } from 'react-router';
 import propTypes from 'prop-types';
@@ -17,7 +17,8 @@ const BlogForm = ({ editing }) => {
   const [originalPublish, setOriginalPublish] = useState(false);
   const [titleError, setTitleError] = useState(false);
   const [bodyError, setBodyError] = useState(false);
-  const [toasts, setToasts] = useState([]);
+  const [, setToastRerender] = useState(false);
+  const toasts = useRef([]);
 
   useEffect(() => {
     if (editing) {
@@ -63,12 +64,12 @@ const BlogForm = ({ editing }) => {
   }
 
   const deleteToast = (id) => {
-    console.log(toasts);
-    const filteredToasts = toasts.filter(toast => {
+    const filteredToasts = toasts.current.filter(toast => {
       return toast.id !== id;
     });
 
-    setToasts(filteredToasts);
+    toasts.current = filteredToasts;
+    setToastRerender(prev => !prev);
   }
 
   const addToast = (toast) => {
@@ -77,8 +78,10 @@ const BlogForm = ({ editing }) => {
       ...toast,
       id
     }
-    setToasts(prev => [...prev, toastWithId]);
-    console.log('add', toasts);
+
+    toasts.current = [...toasts.current, toastWithId];
+    setToastRerender(prev => !prev);
+    
     setTimeout(() => {
       deleteToast(id);
     }, 5000);
@@ -121,7 +124,7 @@ const BlogForm = ({ editing }) => {
   return (
     <div>
       <Toast
-        toasts={toasts}
+        toasts={toasts.current}
         deleteToast={deleteToast}
       />
       <h1>{editing ? 'Edit' : 'Create'} a blog post</h1>
