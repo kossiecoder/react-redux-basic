@@ -8,7 +8,6 @@ import { useLocation } from 'react-router-dom';
 import propTypes from 'prop-types';
 import Toast from '../components/Toast';
 import useToast from '../hooks/toast';
-import { useSelector } from 'react-redux';
 
 const BlogList = ({ isAdmin }) => {
   const history = useHistory();
@@ -21,10 +20,6 @@ const BlogList = ({ isAdmin }) => {
   const [numberOfPosts, setNumberOfPosts] = useState(0);
   const [numberOfPages, setNumberOfPages] = useState(0);
   const [searchText, setSearchText] = useState('');
-  const toasts1 = useSelector((state) => {
-    return state.toast.toasts;
-  });
-  console.log('hello', toasts1)
 
   const [toasts, addToast, deleteToast] = useToast();
   const limit = 5;
