@@ -9,7 +9,6 @@ const ShowPage = () => {
   const { id } = useParams();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [timer, setTimer] = useState(0);
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
   const getPost = (id) => {
@@ -18,17 +17,6 @@ const ShowPage = () => {
       setLoading(false);
     })
   };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      console.log('hello')
-      setTimer(prev => prev + 1);
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-    }
-  }, []);
 
   useEffect(() => {
     getPost(id)
@@ -45,7 +33,7 @@ const ShowPage = () => {
   return (
     <div>
       <div className="d-flex">
-        <h1 className="flex-grow-1">{post.title} ({timer}초)</h1>
+        <h1 className="flex-grow-1">{post.title}</h1>
         {isLoggedIn && <div>
           <Link 
             className="btn btn-primary"
