@@ -878,14 +878,14 @@
     {
       "title": "2",
       "body": "2",
-      "publish": false,
+      "publish": true,
       "createdAt": 1657240147188,
       "id": 126
     },
     {
       "title": "2",
       "body": "2",
-      "publish": false,
+      "publish": true,
       "createdAt": 1657240162434,
       "id": 127
     }

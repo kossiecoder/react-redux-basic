@@ -29,7 +29,7 @@ const NavBar = () => {
                 {isLoggedIn ? 'Logout' : 'Login'}
               </button>
             </li>
-            <li className="nav-item me-2">
+            {isLoggedIn ? <li className="nav-item me-2">
               <NavLink 
                 activeClassName="active"
                 className="nav-link" 
@@ -38,7 +38,7 @@ const NavBar = () => {
               >
                 Admin
               </NavLink>
-            </li>
+            </li> : null}
             <li className="nav-item">
               <NavLink 
                 activeClassName="active"
