@@ -4,6 +4,7 @@ import EditPage from './pages/EditPage';
 import ListPage from './pages/ListPage';
 import AdminPage from './pages/AdminPage';
 import ShowPage from './pages/ShowPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 const routes = [
   {
@@ -32,6 +33,10 @@ const routes = [
   {
     path: '/blogs/:id',
     component: ShowPage
+  },
+  {
+    path: '*',
+    component: NotFoundPage
   }
 ];
 
