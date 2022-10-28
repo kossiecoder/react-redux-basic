@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useHistory, useParams } from 'react-router';
 import propTypes from 'prop-types';
+import useToast from '../hooks/toast';
+import LoadingSpinner from './LoadingSpinner';
 
-const BlogForm = ({ editing, addToast }) => {
+const BlogForm = ({ editing }) => {
   const history = useHistory();
   const { id } = useParams();
 
@@ -15,6 +17,9 @@ const BlogForm = ({ editing, addToast }) => {
   const [originalPublish, setOriginalPublish] = useState(false);
   const [titleError, setTitleError] = useState(false);
   const [bodyError, setBodyError] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const { addToast } = useToast();
 
   useEffect(() => {
     if (editing) {
@@ -25,7 +30,17 @@ const BlogForm = ({ editing, addToast }) => {
         setOriginalBody(res.data.body);
         setPublish(res.data.publish);
         setOriginalPublish(res.data.publish);
+        setLoading(false);
+      }).catch(e => {
+        setError('something went wrong in db');
+        addToast({
+          type: 'danger',
+          text: 'something went wrong in db'
+        })
+        setLoading(false);
       })
+    } else {
+      setLoading(false);
     }
   }, [id, editing]);
 
@@ -71,6 +86,11 @@ const BlogForm = ({ editing, addToast }) => {
         }).then(res => {
           console.log(res);
           history.push(`/blogs/${id}`)
+        }).catch(e => {
+          addToast({
+            type: 'danger',
+            text: 'We could not update blog'
+          })
         })
       } else {
         axios.post('http://localhost:3001/posts', {
@@ -84,6 +104,11 @@ const BlogForm = ({ editing, addToast }) => {
             text: 'Successfully created!'
           });
           history.push('/admin');
+        }).catch(e => {
+          addToast({
+            type: 'danger',
+            text: 'We could not create blog'
+          })
         })
       }
     }
@@ -92,6 +117,14 @@ const BlogForm = ({ editing, addToast }) => {
   const onChangePublish = (e) => {
     setPublish(e.target.checked);
   };
+
+  if (loading) {
+    return <LoadingSpinner />
+  }
+
+  if (error) {
+    return (<div>{error}</div>)
+  }
 
   return (
     <div>

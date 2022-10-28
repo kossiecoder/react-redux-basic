@@ -77,6 +77,11 @@ const BlogList = ({ isAdmin }) => {
         text: 'Successfully deleted',
         type: 'success'
       });
+    }).catch(e => {
+      addToast({
+        text: 'The blog could not be deleted.',
+        type: 'danger'
+      })
     });
   };
   
