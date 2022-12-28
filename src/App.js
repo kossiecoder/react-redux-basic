@@ -1,6 +1,6 @@
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route,
 } from 'react-router-dom';
 import NavBar from './components/NavBar';
@@ -37,23 +37,17 @@ function App() {
         deleteToast={deleteToast}
       />
       <div className="container mt-3">
-        <Switch>
-          {routes.map((route) => {
-            if (route.auth) {
-              return <ProtectedRoute
-                path={route.path} 
-                component={route.component}
-                key={route.path} 
-              />
-            }
+        <Routes>
+          {routes.map((route) => {       
             return <Route 
               key={route.path} 
-              exact 
               path={route.path} 
-              component={route.component} 
+              element={route.auth ? <ProtectedRoute
+                element={route.element}
+              /> : route.element} 
             />
           })}
-        </Switch>
+        </Routes>
       </div>
     </Router>
   );

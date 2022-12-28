@@ -9,34 +9,34 @@ import NotFoundPage from './pages/NotFoundPage';
 const routes = [
   {
     path: '/',
-    component: HomePage
+    element: <HomePage />
   },
   {
     path: '/blogs',
-    component: ListPage
+    element: <ListPage />
   },
   {
     path: '/admin',
-    component: AdminPage,
+    element: <AdminPage />,
     auth: true
   },
   {
     path: '/blogs/create',
-    component: CreatePage,
+    element: <CreatePage />,
     auth: true
   },
   {
     path: '/blogs/:id/edit',
-    component: EditPage,
+    element: <EditPage />,
     auth: true
   },
   {
     path: '/blogs/:id',
-    component: ShowPage
+    element: <ShowPage />
   },
   {
     path: '*',
-    component: NotFoundPage
+    element: <NotFoundPage />
   }
 ];
 
